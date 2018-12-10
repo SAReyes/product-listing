@@ -3,6 +3,7 @@ package com.example.productlisting.controller;
 import com.example.productlisting.dto.OrderDto;
 import com.example.productlisting.mapper.OrderMapper;
 import com.example.productlisting.service.OrderService;
+import com.example.productlisting.utils.DateUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -20,8 +21,6 @@ import java.util.Date;
 @RequestMapping("/orders")
 public class OrderController {
 
-    private final static String DATE_FORMAT = "yyyy-MM-dd'T'HH:mm:ss";
-
     private OrderService service;
     private OrderMapper mapper;
 
@@ -33,9 +32,9 @@ public class OrderController {
 
     @GetMapping
     private Flux<OrderDto> get(@RequestParam(name = "from", required = false)
-                               @DateTimeFormat(pattern = DATE_FORMAT) Date fromDate,
+                               @DateTimeFormat(pattern = DateUtils.DATE_FORMAT) Date fromDate,
                                @RequestParam(name = "to", required = false)
-                               @DateTimeFormat(pattern = DATE_FORMAT) Date toDate) {
+                               @DateTimeFormat(pattern = DateUtils.DATE_FORMAT) Date toDate) {
         return service.find(fromDate, toDate)
                 .map(it -> mapper.domainToDto(it));
     }

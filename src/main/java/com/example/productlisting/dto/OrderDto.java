@@ -1,6 +1,7 @@
 package com.example.productlisting.dto;
 
 
+import com.example.productlisting.utils.DateUtils;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -13,7 +14,11 @@ import java.util.List;
 public class OrderDto {
     private Long id;
     private String email;
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss", timezone = "Europe/Berlin")
+    @JsonFormat(
+            shape = JsonFormat.Shape.STRING,
+            pattern = DateUtils.DATE_FORMAT,
+            timezone = DateUtils.DATE_TIMEZONE
+    )
     private Date createdAt;
     private List<ProductDto> products;
 }

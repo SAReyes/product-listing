@@ -3,8 +3,8 @@ spring:
     console:
       enabled: true
   datasource:
-    url: jdbc:mysql://localhost:3306/productdemo?useSSL=false
     driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/productdemo?useSSL=false
     username: ${DB_USER:root}
     password: ${DB_PWD:root}
   jpa:

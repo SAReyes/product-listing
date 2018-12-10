@@ -1,0 +1,181 @@
+swagger: "2.0"
+info:
+  description: "Small example project using Spring boot 2 webflux with java 10"
+  version: "0.1.0"
+  title: "Product listing"
+tags:
+- name: "product"
+- name: "orders"
+paths:
+  /products:
+    get:
+      tags:
+      - "product"
+      summary: "List all products"
+      responses:
+        200:
+          description: OK
+          schema:
+            type: "array"
+            items:
+              $ref: '#/definitions/ProductResponse'
+    post:
+      tags:
+      - "product"
+      summary: "Add a new product to the store"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "Product object that needs to be added to the store"
+        required: true
+        schema:
+          $ref: '#/definitions/ProductRequest'
+      responses:
+        200:
+          description: Ok
+          schema:
+            $ref: '#/definitions/ProductResponse'
+  /products/{productId}:
+    parameters:
+    - name: "productId"
+      in: "path"
+      description: "ID of product"
+      required: true
+      type: "integer"
+    put:
+      tags:
+      - "product"
+      summary: "Update an existing product"
+      description: "Updates all fields sent on the body, missing fields will be treated as 'null'."
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "Product object to be updated"
+        required: true
+        schema:
+          $ref: '#/definitions/ProductRequest'
+      responses:
+        200:
+          description: Ok
+          schema:
+            $ref: '#/definitions/ProductResponse'
+    patch:
+      tags:
+      - "product"
+      summary: "Update partially an existing product"
+      description: "Updates only the fields sent on the body"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "Product object to be updated"
+        required: true
+        schema:
+          $ref: '#/definitions/ProductRequest'
+      responses:
+        200:
+          description: Ok
+          schema:
+            $ref: '#/definitions/ProductResponse'
+  /orders:
+    get:
+      tags:
+      - "orders"
+      summary: "List all orders with some filters"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "from"
+        in: "query"
+        description: "Lower bound to filter the orders"
+        required: false
+        type: "string"
+        format: "date-time"
+      - name: "to"
+        in: "query"
+        description: "Upper bound to filter the orders"
+        required: false
+        type: "string"
+        format: "date-time"
+      responses:
+        200:
+          description: OK
+          schema:
+            $ref: '#/definitions/OrderResponse'
+    post:
+      tags:
+      - "orders"
+      summary: "Add a new order to the store"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "Order object that needs to be added to the store"
+        required: true
+        schema:
+          $ref: '#/definitions/OrderRequest'
+      responses:
+        200:
+          description: OK
+          schema:
+            $ref: '#/definitions/OrderResponse'
+
+definitions:
+  ProductRequest:
+    type: "object"
+    properties:
+      name:
+        type: "string"
+      price:
+        type: "number"
+        format: "double"
+  ProductResponse:
+    type: "object"
+    properties:
+      id:
+        type: "integer"
+      name:
+        type: "string"
+      price:
+        type: "number"
+        format: "double"
+  OrderRequest:
+    type: "object"
+    properties:
+      email:
+        type: "string"
+      products:
+        type: "array"
+        items:
+          type: "object"
+          properties:
+            id:
+              type: "integer"
+  OrderResponse:
+    type: "object"
+    properties:
+      email:
+        type: "string"
+      createdAt:
+        type: "string"
+        format: "date-time"
+      products:
+        type: "array"
+        items:
+          $ref: '#/definitions/ProductResponse'
