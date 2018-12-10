@@ -37,7 +37,7 @@ public class ProductController {
     @PostMapping
     public Mono<ProductDto> post(@RequestBody ProductDto product) {
         return Mono.just(product)
-                .map(it -> mapper.dtoToDomain(product))
+                .map(it -> mapper.dtoToDomain(it))
                 .flatMap(it -> service.save(it))
                 .map(it -> mapper.domainToDto(it));
     }

@@ -12,7 +12,6 @@ buildscript {
 
 plugins {
     id 'net.ltgt.apt' version '0.8'
-//    id 'net.ltgt.apt-idea' version '0.8'
 }
 
 apply plugin: 'java'
@@ -33,13 +32,16 @@ repositories {
 dependencies {
     implementation group: 'org.mapstruct', name: 'mapstruct-jdk8', version: '1.2.0.Final'
     implementation group: 'org.projectlombok', name: 'lombok'
-    implementation group: 'com.h2database', name: 'h2'
+    implementation group: 'commons-beanutils', name: 'commons-beanutils', version: '1.9.3'
+    implementation group: 'mysql', name: 'mysql-connector-java'
+
     implementation group: 'org.springframework.boot', name: 'spring-boot-starter-data-jpa'
     implementation group: 'org.springframework.boot', name: 'spring-boot-starter-webflux'
-    implementation group: 'commons-beanutils', name: 'commons-beanutils', version: '1.9.3'
+
     testImplementation group: 'org.springframework.boot', name: 'spring-boot-starter-test'
     testImplementation group: 'io.projectreactor', name: 'reactor-test'
     testImplementation group: 'org.assertj', name: 'assertj-core', version: '3.11.1'
+    testImplementation group: 'com.h2database', name: 'h2'
 
     apt group: 'org.projectlombok', name: 'lombok'
     apt group: 'org.mapstruct', name: 'mapstruct-processor', version: '1.2.0.Final'

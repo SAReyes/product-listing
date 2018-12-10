@@ -15,8 +15,6 @@ import org.springframework.test.web.reactive.server.WebTestClient;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
-import java.util.Arrays;
-
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.verify;
 
@@ -50,11 +48,11 @@ public class ProductControllerTest {
 
         fooDto = new ProductDto();
         fooDto.setId(1L);
-        fooDto.setName("foo");
+        fooDto.setName("fooDto");
         fooDto.setPrice(1.0);
         barDto = new ProductDto();
         barDto.setId(2L);
-        barDto.setName("bar");
+        barDto.setName("barDto");
         barDto.setPrice(2.0);
 
         given(productMapper.domainToDto(foo)).willReturn(fooDto);
@@ -65,7 +63,7 @@ public class ProductControllerTest {
 
     @Test
     public void gets_all_products() {
-        given(productService.findAll()).willReturn(Flux.fromIterable(Arrays.asList(foo, bar)));
+        given(productService.findAll()).willReturn(Flux.just(foo, bar));
 
         sut.get().uri("/products")
                 .exchange()
@@ -79,7 +77,7 @@ public class ProductControllerTest {
         given(productService.save(foo)).willReturn(Mono.just(foo));
 
         sut.post().uri("/products")
-                .body(Mono.just(foo), Product.class)
+                .body(Mono.just(fooDto), ProductDto.class)
                 .exchange()
                 .expectBody(ProductDto.class)
                 .isEqualTo(fooDto);
@@ -92,7 +90,7 @@ public class ProductControllerTest {
         given(productService.update(1L, foo)).willReturn(Mono.just(foo));
 
         sut.put().uri("/products/1")
-                .body(Mono.just(foo), Product.class)
+                .body(Mono.just(fooDto), ProductDto.class)
                 .exchange()
                 .expectBody(ProductDto.class)
                 .isEqualTo(fooDto);
@@ -105,7 +103,7 @@ public class ProductControllerTest {
         given(productService.patch(1L, foo)).willReturn(Mono.just(foo));
 
         sut.patch().uri("/products/1")
-                .body(Mono.just(foo), Product.class)
+                .body(Mono.just(fooDto), ProductDto.class)
                 .exchange()
                 .expectBody(ProductDto.class)
                 .isEqualTo(fooDto);

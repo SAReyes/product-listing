@@ -14,22 +14,14 @@ import org.springframework.context.annotation.Configuration;
 public class ProductConfig {
 
     @Bean
-    public NullAwareBeanUtils nullAwareBeanUtils() {
-        return new NullAwareBeanUtils();
-    }
-
-    @Bean
-    public DateUtils dateUtilsBean() {
-        return new DateUtils();
-    }
-
-    @Bean
     public ProductMapper productMapper() {
         return Mappers.getMapper(ProductMapper.class);
     }
 
     @Bean
-    public ProductService productService(ProductRepository repository) {
-        return new ProductServiceImpl(repository, nullAwareBeanUtils(), dateUtilsBean());
+    public ProductService productService(ProductRepository repository,
+                                         NullAwareBeanUtils nullAwareBeanUtils,
+                                         DateUtils dateUtils) {
+        return new ProductServiceImpl(repository, nullAwareBeanUtils, dateUtils);
     }
 }
