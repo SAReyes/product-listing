@@ -1,3 +1,4 @@
+[![Build Status](https://travis-ci.com/SAReyes/product-listing.svg?branch=master)](https://travis-ci.com/SAReyes/product-listing)
 # product-listing
 Small REST example using java 10 + Spring boot 2.1.x with webflux
 
