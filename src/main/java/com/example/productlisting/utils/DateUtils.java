@@ -4,7 +4,7 @@ import java.util.Date;
 
 public class DateUtils {
 
-    public final static String DATE_FORMAT = "yyyy-MM-dd'T'HH:mm:ss";
+    public final static String DATE_FORMAT = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'";
     public final static String DATE_TIMEZONE = "Europe/Berlin";
 
     public Date now() {
