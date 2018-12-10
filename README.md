@@ -35,3 +35,13 @@ credentials use the following variables:
 * `DB_PWD` - database password
 
 The host is not configurable as this is only supposed to be run locally
+
+# Running the unit tests
+Unix:
+```
+$ ./gradlew check
+```
+Windows:
+```
+$ gradlew.bat check
+```
