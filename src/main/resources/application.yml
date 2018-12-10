@@ -4,7 +4,7 @@ spring:
       enabled: true
   datasource:
     driver-class-name: com.mysql.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/productdemo?useSSL=false
+    url: jdbc:mysql://localhost:3306/productdemo?useSSL=false&allowPublicKeyRetrieval=true
     username: ${DB_USER:root}
     password: ${DB_PWD:root}
   jpa:
@@ -14,4 +14,4 @@ spring:
 spring:
   profiles: docker
   datasource:
-    url: jdbc:mysql://mysql:3306/productdemo?useSSL=false
+    url: jdbc:mysql://mysql:3306/productdemo?useSSL=false&allowPublicKeyRetrieval=true
